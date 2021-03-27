@@ -5,7 +5,7 @@
 <br />
 <p align="center">
   <a href="https://github.com/smigg-y/Personal-E2s">
-    <img src="https://i.imgur.com/PNsjrzV.jpg" alt="Logo" width="80" height="80">
+    <img src="https://i.imgur.com/PNsjrzV.jpg" alt="Logo" width="120" height="120">
   </a>
 
   <h3 align="center">Personal E2s</h3>
