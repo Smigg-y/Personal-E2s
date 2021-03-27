@@ -11,9 +11,9 @@
   <h3 align="center">Personal E2s</h3>
 
   <p align="center">
-    project_description
+    I am a bumba clart ediat
     <br />
-    <a href="https://github.com/smigg-y/Personal-E2s"><strong>Explore the docs »</strong></a>
+    <a href="https://github.com/smigg-y/Personal-E2s"><strong>Explore the repo »</strong></a>
     <br />
     <br />
     ·
