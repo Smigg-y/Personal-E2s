@@ -1,6 +1,7 @@
 [![Issues][issues-shield]][issues-url]
 [![Contributors][contributors-shield]][contributors-url]
 [![Forks][forks-shield]][forks-url]
+[![Stars][stars-shield]][stars-url]
 
 <!-- PROJECT LOGO -->
 <br />
@@ -52,3 +53,5 @@ Contributions are what make the open source community such an amazing place to b
 [forks-url]: https://github.com/Smigg-y/Personal-E2s/network/members
 [issues-shield]: https://img.shields.io/github/issues/Smigg-y/Personal-E2s.svg?style=for-the-badge
 [issues-url]: https://github.com/Smigg-y/Personal-E2s/issues
+[stars-shield]: https://img.shields.io/github/stars/Smigg-y/Personal-E2s.svg?style=for-the-badge
+[stars-url]: https://github.com/Smigg-y/Personal-E2s
