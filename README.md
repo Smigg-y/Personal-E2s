@@ -8,7 +8,7 @@
     <img src="https://i.imgur.com/PNsjrzV.jpg" alt="Logo" width="80" height="80">
   </a>
 
-  <h3 align="center">project_title</h3>
+  <h3 align="center">Personal E2s</h3>
 
   <p align="center">
     project_description
@@ -16,7 +16,6 @@
     <a href="https://github.com/smigg-y/Personal-E2s"><strong>Explore the docs »</strong></a>
     <br />
     <br />
-    <a href="https://github.com/smigg-y/Personal-E2s">View Demo</a>
     ·
     <a href="https://github.com/smigg-y/Personal-E2s/issues">Report Bug</a>
     ·
