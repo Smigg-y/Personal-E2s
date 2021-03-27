@@ -48,4 +48,4 @@ Contributions are what make the open source community such an amazing place to b
 [contributors-shield]: https://img.shields.io/github/contributors/smigg-y/repo.svg?style=for-the-badge
 [contributors-url]: https://github.com/smigg-y/repo/graphs/contributors
 [forks-shield]: https://img.shields.io/github/forks/smigg-y/repo.svg?style=for-the-badge
-[forks-url]: https://github.com/smigg-y/repo/network/members
+[forks-url]: https://github.com/Smigg-y/Personal-E2s/network/members
