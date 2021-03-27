@@ -46,6 +46,6 @@ Contributions are what make the open source community such an amazing place to b
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 [contributors-shield]: https://img.shields.io/github/contributors/smigg-y/repo.svg?style=for-the-badge
-[contributors-url]: https://github.com/smigg-y/repo/graphs/contributors
+[contributors-url]: https://github.com/Smigg-y/Personal-E2s/graphs/contributors
 [forks-shield]: https://img.shields.io/github/forks/smigg-y/repo.svg?style=for-the-badge
 [forks-url]: https://github.com/Smigg-y/Personal-E2s/network/members
