@@ -1,10 +1,13 @@
-# Instructions per E2
-
-### VGUI Gun Store
-
-- Type .align in order to align nearby shipments
-  - 4x4 (x4) grid (max of 64 shipments)
-- Type .gs to open the gun store menu
-  - Admin tab can only viewed by the owner of the E2
-- Press the Add button in the Admin tab to add nearby shipments to the list players can buy from
-  - Clicking a name on the list will remove it
+<details open="open">
+  <summary><h2 style="display: inline-block">Table of Contents</h2></summary>
+  <ol>
+    <li>
+      <a href="about-the-repo">About The Repo</a>
+      <ul>
+        <li><a href="prerequisites">Prerequisites</a></li>
+      </ul>
+    </li>
+    <li>
+      <a href="vgui-gun-store">VGUI Gun Store</a></li>
+  </ol>
+  </details>
