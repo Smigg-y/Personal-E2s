@@ -1,0 +1,337 @@
+@name VGUI Gun Shop
+@persist Frame:dframe [BuyPnl AdminPnl SettingsPnl]:dpanel PS:dpropertysheet [AddBtn BuyBtn]:dbutton BuyCombo:dcombobox BuyMdl:dmodelpanel 
+@persist Selected Guns:array WepList:dlistview Markup Effect:effect Profit [NonAdminLbl ProfitLbl]:dlabel Color:dcolormixer K
+
+if(first()){
+    runOnChat(1)
+    runOnVgui(1)
+    vguiDefaultPlayers(players())
+    
+    Markup = 10000 #-- Price added on top of normal shipment prices
+    
+    #-- Don't change anything below here unless you know what you're doing xD  
+    Frame = dframe(1)
+    Frame:center()
+    Frame:makePopup()
+    Frame:setTitle("")
+    Frame:setSize(500, 500)
+    Frame:setColor(vec(40,40,40))
+    Frame:setDeleteOnClose(0)
+    Frame:setVisible(0)
+    Frame:create()
+    
+    BuyPnl = dpanel(2)
+    BuyPnl:setColor(vec(40,40,40))
+    BuyPnl:create()
+    
+    AdminPnl = dpanel(3)
+    AdminPnl:setColor(vec(40,40,40))
+    AdminPnl:create() 
+    
+    #-- Added at a later date and i am not re-arranging everything, feel free to do so yourself
+    SettingsPnl = dpanel(11)
+    SettingsPnl:setColor(vec(40,40,40))
+    SettingsPnl:create()
+    
+    Color = dcolormixer(12, SettingsPnl)
+    Color:setColor(40, 40, 40)
+    Color:showAlphaBar(0)
+    Color:showWangs(0)
+    Color:showPalette(0)
+    Color:dock(_DOCK_FILL)
+    Color:dockMargin(125, 25, 125, 300) #-- left, top, right, bottom
+    Color:create()
+    
+    NonAdminLbl = dlabel(13, AdminPnl)
+    NonAdminLbl:setTextColor(255, 255, 255, 255)
+    NonAdminLbl:setText("You need to be an Admin in order to view the contents of this page!")
+    NonAdminLbl:dock(_DOCK_FILL)
+    NonAdminLbl:setSize(500, 25)
+    NonAdminLbl:dockMargin(70, 50, 70, 150)
+    NonAdminLbl:create()
+    #-- back to being normal again :D
+    
+    PS = dpropertysheet(4, Frame)
+    PS:addSheet("Buy", BuyPnl, "icon16/money.png")
+    PS:addSheet("Admin", AdminPnl, "icon16/shield.png")
+    PS:addSheet("Settings", SettingsPnl, "icon16/cog.png")
+    PS:dock(_DOCK_FILL)
+    PS:create()
+    
+    BuyBtn = dbutton(5, BuyPnl)
+    BuyBtn:setPos(255, 10)
+    BuyBtn:setSize(210, 35)
+    BuyBtn:setColor(vec(90,90,90))
+    BuyBtn:setText("Buy")
+    BuyBtn:setTextColor(vec(255), vec(255), vec(255), vec(255))
+    BuyBtn:create()
+    
+    BuyCombo = dcombobox(6, BuyPnl)
+    BuyCombo:setPos(10, 10)
+    BuyCombo:setText("Weapons")
+    BuyCombo:setSize(210, 35)
+    BuyCombo:create()
+    
+    BuyMdl = dmodelpanel(7, BuyPnl)
+    BuyMdl:setPos(10,50)
+    BuyMdl:setSize(455, 370)
+    BuyMdl:setDrawOutlinedRect(vec(90,90,90))
+    BuyMdl:autoAdjust()
+    BuyMdl:create()
+    
+    WepList = dlistview(8, AdminPnl)
+    WepList:setPos(10, 10)
+    WepList:setSize(455, 365)
+    WepList:addColumn("Weapon")
+    WepList:addColumn("Price")
+    WepList:addColumn("ID")
+    WepList:sortByColumn(3, 1)
+    WepList:create()
+    
+    AddBtn = dbutton(9, AdminPnl)
+    AddBtn:setSize(150, 35)
+    AddBtn:setPos(10, 385)
+    AddBtn:setTextColor(vec(255), vec(255), vec(255), vec(255))
+    AddBtn:setColor(vec(90,90,90))
+    AddBtn:setText("Add")
+    AddBtn:create()
+    
+    ProfitLbl = dlabel(10, AdminPnl)
+    ProfitLbl:setText("Profit: $0")
+    ProfitLbl:setSize(500, 25)
+    ProfitLbl:setTextColor(255, 255, 255, 255)
+    ProfitLbl:setPos(170, 389)
+    ProfitLbl:create()
+    
+    function void hprint(){
+        printColor(vec(255, 255, 255), "[", hsv2rgb(sin(curtime() * 50) * 360, 1, 1), "GS", vec(255, 255, 255), "] ", "Type .align to align nearby shipments")
+        printColor(vec(255, 255, 255), "[", hsv2rgb(sin(curtime() * 50) * 360, 1, 1), "GS", vec(255, 255, 255), "] ", "Type .gs to open the menu")
+        printColor(vec(255, 255, 255), "[", hsv2rgb(sin(curtime() * 50) * 360, 1, 1), "GS", vec(255, 255, 255), "] ", "Press the Add button in the Admin tab to add nearby shipments")
+    }
+    
+    function void cprint(Text:string){
+        printColor(vec(255, 255, 255), "[", hsv2rgb(sin(curtime() * 50) * 360, 1, 1), "GS", vec(255, 255, 255), "] ", Text)
+    }
+    
+    hprint()
+}
+
+if(chatClk()){
+    if(lastSaid() == ".gs" & lastSpoke() != owner()){
+        hideChat(1)
+        
+        local Visible = Frame:isVisible(lastSpoke())
+        Frame:setVisible(!Visible)
+        Frame:modify(array(lastSpoke()))
+        
+        AddBtn:setVisible(Visible)
+        WepList:setVisible(Visible)
+        ProfitLbl:setVisible(Visible)
+        AddBtn:modify(array(lastSpoke()))
+        WepList:modify(array(lastSpoke()))
+        ProfitLbl:modify(array(lastSpoke()))
+        
+        cprint(format("%s has opened the menu!", lastSpoke():name()))
+    }
+    elseif(lastSaid() == ".gs" & lastSpoke() == owner()){
+        hideChat(1)
+        
+        local Visible = Frame:isVisible(lastSpoke())
+        Frame:setVisible(!Visible)
+        Frame:modify(array(lastSpoke()))
+        
+        NonAdminLbl:setVisible(Visible)
+        NonAdminLbl:modify(array(owner()))
+    }
+    
+    if(owner():lastSaid() == ".align"){
+        hideChat(1)
+        
+        findInSphere(owner():pos(), 500)
+        findIncludePlayerProps(owner())
+        findByClass("spawned_shipment")
+        
+        Shipments = findToArray()
+        
+        K = 1
+        for (A = 1, 4) {
+            if(K <= 16){
+                Shipments[K, entity]:setPos(entity():pos() + vec(A * 50, 0, 0))
+                Shipments[K, entity]:setAng(ang(0, 0, 0))
+                Shipments[K, entity]:propFreeze(1)
+                K++
+                for (B = 1, 3) {
+                    Shipments[K, entity]:setPos(entity():pos() + vec(A * 50, B * 50, 0))
+                    Shipments[K, entity]:setAng(ang(0, 0, 0))
+                    Shipments[K, entity]:propFreeze(1)
+                    K++   
+                }
+            }
+        } 
+
+        for (A = 1, 4) {
+            if(K <= 32){
+                Shipments[K, entity]:setPos(entity():pos() + vec(A * 50, 0, 35))
+                Shipments[K, entity]:setAng(ang(0, 0, 0))
+                Shipments[K, entity]:propFreeze(1)
+                K++
+                for (B = 1, 3) {
+                    Shipments[K, entity]:setPos(entity():pos() + vec(A * 50, B * 50, 35))
+                    Shipments[K, entity]:setAng(ang(0, 0, 0))
+                    Shipments[K, entity]:propFreeze(1)
+                    K++   
+                }
+            }
+        }
+        
+        for (A = 1, 4) {
+            if(K <= 48){
+                Shipments[K, entity]:setPos(entity():pos() + vec(A * 50, 0, 70))
+                Shipments[K, entity]:setAng(ang(0, 0, 0))
+                Shipments[K, entity]:propFreeze(1)
+                K++
+                for (B = 1, 3) {
+                    Shipments[K, entity]:setPos(entity():pos() + vec(A * 50, B * 50, 70))
+                    Shipments[K, entity]:setAng(ang(0, 0, 0))
+                    Shipments[K, entity]:propFreeze(1)
+                    K++   
+                }
+            }
+        }
+        
+        for (A = 1, 4) {
+            Shipments[K, entity]:setPos(entity():pos() + vec(A * 50, 0, 105))
+            Shipments[K, entity]:setAng(ang(0, 0, 0))
+            Shipments[K, entity]:propFreeze(1)
+            K++
+            for (B = 1, 3) {
+                Shipments[K, entity]:setPos(entity():pos() + vec(A * 50, B * 50, 105))
+                Shipments[K, entity]:setAng(ang(0, 0, 0))
+                Shipments[K, entity]:propFreeze(1)
+                K++   
+            }
+        }
+        
+        cprint("Shipments aligned!")
+    }
+    
+    if(owner():lastSaid() == ".help"){
+        hideChat(1)
+        
+        hprint()
+    }
+}
+
+if(vguiClk()){
+    local ID = vguiClkPanelID()
+    switch(ID){
+        case 5,
+            Selected = BuyCombo:getData(vguiClkPlayer()):toNumber()
+            
+            if(Selected != 0){
+                moneyRequest(vguiClkPlayer(), Guns[Selected, entity]:shipmentPrice() + Markup)
+            }
+        break
+        case 6,
+            MdlID = BuyCombo:getData(vguiClkPlayer()):toNumber()
+            
+            BuyMdl:setModel(Guns[MdlID, entity]:shipmentModel())
+            BuyMdl:modify(array(vguiClkPlayer()))
+        break
+        case 8,
+            Selected = vguiClkValues()[1, number]
+            
+            WepList:removeLine(Selected)
+            WepList:modify()
+            
+            cprint(format("Removed %s from the list", Guns[Selected, entity]:shipmentName()))
+            
+            Guns:removeEntity(Selected)
+            
+            BuyCombo:clear()
+            WepList:clear()
+            foreach(K, V:entity = Guns){
+                BuyCombo:addChoice(format("%s | $%s", V:shipmentName(), V:shipmentPrice() + Markup), K)
+                 
+                WepList:addLine(V:shipmentName(), V:shipmentPrice() + Markup, K)
+            }
+            BuyCombo:modify()
+            WepList:modify()
+        break
+        case 9,
+            findInSphere(owner():pos(), 500)
+            findIncludePlayerProps(owner())
+            findByClass("spawned_shipment")
+            
+            Guns = findToArray()
+            
+            BuyCombo:clear()
+            WepList:clear()
+            foreach(K, V:entity = Guns){
+                BuyCombo:addChoice(format("%s | $%s", V:shipmentName(), V:shipmentPrice() + Markup), K)
+                
+                WepList:addLine(V:shipmentName(), V:shipmentPrice() + Markup, K)
+            }
+            BuyCombo:modify()
+            WepList:modify()
+            
+            cprint(format("Added %s shipments!", Guns:count()))
+        break
+        case 12,
+            Col = Color:getColor(vguiClkPlayer())
+            
+            Frame:setColor(Col)
+            Frame:modify(array(vguiClkPlayer()))
+            
+            BuyPnl:setColor(Col)
+            BuyPnl:modify(array(vguiClkPlayer()))
+            
+            AdminPnl:setColor(Col)
+            AdminPnl:modify(array(vguiClkPlayer()))
+            
+            SettingsPnl:setColor(Col)
+            SettingsPnl:modify(array(vguiClkPlayer()))
+        break
+    }
+}   
+
+if(moneyClk()){
+    local Visible = Frame:isVisible(moneyClkPlayer())
+    Frame:setVisible(!Visible)
+    Frame:modify(array(moneyClkPlayer()))
+    
+    Profit = Profit + Markup
+    ProfitLbl:setText(format("Profit: $%s", Profit))
+    ProfitLbl:modify()
+    
+    Prop = propSpawn("models/props_junk/wood_crate001a.mdl", moneyClkPlayer():pos() + vec(0,0,75) + moneyClkPlayer():forward() * 75, 0)
+    Prop:propFreeze(0)
+    
+    cprint(format("Sold %s for $%s to %s", Guns[Selected, entity]:shipmentName(), Guns[Selected, entity]:shipmentPrice() + Markup, moneyClkPlayer():name()))
+    
+    Ent = Guns[Selected, entity]
+    Ent:propFreeze(0)
+    Ent:setPos(Prop:pos())
+    
+    Guns:removeEntity(Selected)
+    Selected = 0
+    
+    BuyMdl:setModel("")
+    BuyMdl:modify(array(moneyClkPlayer()))
+    
+    WepList:clear()
+    BuyCombo:clear()
+    foreach(K, V:entity = Guns){
+        BuyCombo:addChoice(format("%s | $%s", V:shipmentName(), V:shipmentPrice() + Markup), K)
+                 
+        WepList:addLine(V:shipmentName(), V:shipmentPrice() + Markup, K)
+    }
+    BuyCombo:modify()
+    WepList:modify()
+    
+    Prop:propBreak()
+    
+    Effect = effect()
+    Effect:setOrigin(Prop:pos())
+    Effect:play("Balloon_pop")
+}
