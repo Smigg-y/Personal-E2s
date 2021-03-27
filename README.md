@@ -1,3 +1,4 @@
+[![Issues][issues-shield]][issues-url]
 [![Contributors][contributors-shield]][contributors-url]
 [![Forks][forks-shield]][forks-url]
 
@@ -49,3 +50,5 @@ Contributions are what make the open source community such an amazing place to b
 [contributors-url]: https://github.com/Smigg-y/Personal-E2s/graphs/contributors
 [forks-shield]: https://img.shields.io/github/forks/Smigg-y/Personal-E2s.svg?style=for-the-badge
 [forks-url]: https://github.com/Smigg-y/Personal-E2s/network/members
+[issues-shield]: https://img.shields.io/github/issues/Smigg-y/Personal-E2s.svg?style=for-the-badge
+[issues-url]: https://github.com/Smigg-y/Personal-E2s/issues
