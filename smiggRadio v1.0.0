@@ -1,0 +1,225 @@
+@name YT Stuff with EGP
+@inputs E:wirelink
+@persist [NP Prefix]:string [Links Playlist Result]:table
+@persist [PLAY SOUND_ID VOLUME CLK Time]
+
+if(first() | changed(E)){
+    entity():createWire(entity():isWeldedTo(), "E", "wirelink")
+    function void loadegp(){
+        # Format: array(Index, Position, Scale, Color, [Optional: Parent])
+        function void crbox(ARR:array){
+            E:egpBox(ARR[1, number], ARR[2, vector2], ARR[3, vector2])
+            E:egpColor(ARR[1, number], ARR[4, vector])
+            
+            if(ARR[5, number] != 0){ E:egpParent(ARR[1, number], ARR[5, number]) }
+        }
+        E:egpClear()
+        
+        # ---// Background \\---
+        crbox(array(1, vec2(256, 256), vec2(512, 512), vec(25, 25, 35)))
+        
+        # ---// Currently Playing Box \\---
+        crbox(array(2, vec2(256, 45), vec2(412, 45), vec(35, 35, 55)))
+    
+        # ---// Result Bounding Box \\---
+        crbox(array(3, vec2(256, 265), vec2(412, 375), vec(35, 35, 55)))
+        
+        # ---// Result Boxes \\---
+        crbox(array(4, vec2(0, -175), vec2(412, 25), vec(25, 25, 45), 3))      
+        crbox(array(5, vec2(0, -150), vec2(412, 25), vec(35, 35, 55), 3))        
+        crbox(array(6,  vec2(0, -125), vec2(412, 25), vec(25, 25, 45), 3))        
+        crbox(array(7, vec2(0, -100), vec2(412, 25), vec(35, 35, 55), 3))        
+        crbox(array(8,  vec2(0, -75), vec2(412, 25), vec(25, 25, 45), 3))        
+        crbox(array(9, vec2(0, -50), vec2(412, 25), vec(35, 35, 55), 3))
+        crbox(array(10, vec2(0, -25), vec2(412, 25), vec(25, 25, 45), 3))        
+        crbox(array(11, vec2(0, 0), vec2(412, 25), vec(35, 35, 55), 3))        
+        crbox(array(12, vec2(0, 25), vec2(412, 25), vec(25, 25, 45), 3))
+        crbox(array(13, vec2(0, 50), vec2(412, 25), vec(35, 35, 55), 3)) 
+        crbox(array(14, vec2(0, 75), vec2(412, 25), vec(25, 25, 45), 3))     
+        crbox(array(15, vec2(0, 100), vec2(412, 25), vec(35, 35, 55), 3)) 
+        crbox(array(16, vec2(0, 125), vec2(412, 25), vec(25, 25, 45), 3))     
+        crbox(array(17, vec2(0, 150), vec2(412, 25), vec(35, 35, 55), 3))
+        crbox(array(18, vec2(0, 175), vec2(412, 25), vec(25, 25, 45), 3))
+        
+        # ---// Result Bounding Box Outline \\---
+        E:egpBoxOutline(19, vec2(256, 265), vec2(412, 375))
+        E:egpColor(19, vec(45, 45, 65))
+        
+        # ---// Currently Playing Box Outline \\---
+        E:egpBoxOutline(20, vec2(256, 45), vec2(412, 45))
+        E:egpColor(20, vec(45, 45, 65))
+        
+        # ---// Currently Playing Box Text \\---
+        E:egpText(21, "", vec2(0, 0))
+        E:egpSize(21, 14)
+        E:egpAlign(21, 1, 1)
+        E:egpParent(21, 2)
+        
+        # ---// Cheeky watermark at the bottom \\---
+        E:egpText(22, "smiggRadio v1.0.0", vec2(256, 490))
+        E:egpAlign(22, 1, 1)
+    }
+    loadegp()  
+    
+    runOnChat(1)
+    runOnHTTP(1)
+    
+    Links["convert", string] = "http://www.smiggster.xyz/api/convert.php?youtubelink="
+    Links["search", string] = "http://www.smiggster.xyz/api/search.php?max_results=1&q="
+    
+    Prefix = "!"
+    
+    SOUND_ID = owner():id()
+    VOLUME = 100
+        
+    function void fancychat(ERR, MSG:string){
+        local COL = !ERR ? vec(255, 0, 0) : vec(0, 255, 0)
+        printColor(COL, "| ", vec(255), MSG)
+    }
+    
+    function void updateQueueList(){
+        E:egpClear()
+        loadegp()
+        
+        TEXT_INDEX = 23
+        PARENT_INDEX = 4
+        for(I = 1, Playlist:count()){
+            if(PARENT_INDEX <= 18){
+                E:egpText(TEXT_INDEX, Playlist[I, array][1, string], vec2(0, 0))
+                E:egpAlign(TEXT_INDEX, 1, 1)
+                E:egpParent(TEXT_INDEX, PARENT_INDEX)
+                
+                TEXT_INDEX++
+                PARENT_INDEX++
+            }
+        }
+    }
+    
+    function void printcmds(){
+        local CMDS = array(
+            "play",
+            "skip",
+            "list",
+            "time",
+            "vol (Optional: Number)",
+            "update",
+            "help"
+        )
+        
+        for(I = 1, CMDS:count()){
+            fancychat(1, Prefix + CMDS[I, string])
+        }  
+    }
+    fancychat(1, format("Type %shelp to see a list of commands", Prefix))
+}
+
+if(chatClk(owner()) & lastSaid():sub(1, 1) == Prefix){
+    hideChat(1)
+    ARGS = lastSaid():replace("!", "")
+    S = ARGS:explode(" ")
+    
+    switch(S[1, string]){
+        case "play", 
+            local ERR = httpCanRequest() ? "Requested (1)" : "Couldn't Request (1)"
+            fancychat(httpCanRequest(), ERR)
+            if(httpCanRequest()){
+                local REQ = Links["search", string] + httpUrlEncode(ARGS:sub(6, ARGS:length()))
+                Links["stage1", string] = REQ
+                httpRequest(REQ)
+            }
+        break
+        case "skip", 
+            fancychat(1, "Skipped")
+            PLAY = 0
+            timer("clk", 1000)
+        break
+        case "list", 
+            if(Playlist:count() > 0){
+                for(I = 1, Playlist:count()){ fancychat(1, format("%s: %s", I, Playlist[I, array][1, string])) }
+            } else{ fancychat(0, "Playlist Empty") }
+        break
+        case "time", 
+            fancychat(1, format("(%s | %s)", timeFormat(clamp(CLK, 0, Time)), timeFormat(Time)))
+        break
+        case "vol", 
+            if(S[2, string] != ""){
+                VOLUME = clamp(S[2, string]:toNumber(), 0, 100) / 100
+                fancychat(1, format("Volume set to (%s%%)", VOLUME * 100))
+            } else{ fancychat(1, format("Volume is (%s%%)", VOLUME * 100)) }
+        break
+        case "update",
+            updateQueueList()
+        break
+        case "help",
+            printcmds()
+        break
+        
+    }
+}
+
+if(httpClk()){
+    switch(httpRequestUrl()){
+        case Links["stage1", string],
+            Result = jsonDecode(httpData())
+            timer("delay", 3000)
+        break
+        case Links["stage2", string],
+            local DATA = jsonDecode(httpData())
+            
+            local ARR = array(DATA["title", string], DATA["duration", number], DATA["file", string])
+            Playlist:pushArray(ARR)
+            
+            timer("clk", 1000)
+        break
+    }
+}
+
+if(clk("delay")){
+    local ERR = httpCanRequest() ? "Requested (2)" : "Couldn't Request (2)"
+    fancychat(httpCanRequest(), ERR)
+    
+    if(httpCanRequest()){
+        local REQ = Links["convert", string] + Result["results", table][1, table]["full_link", string]
+        Links["stage2", string] = REQ
+        httpRequest(REQ)   
+    }
+}
+
+if(!PLAY & clk("clk") & Playlist:count() >= 0){ PLAY = 1 }
+
+if(changed(round(PLAY))){
+    if(PLAY){
+        timer("StopFromDuration", 1000)
+        Time = Playlist[1, array][2, number]
+        SongName = Playlist[1, array][1, string]
+        
+        NP = Playlist[1, array][1, string]
+        E:egpSetText(21, NP)
+        
+        if(streamCanStart()){
+            entity():streamStart(SOUND_ID,Playlist[1, array][3, string])
+            streamVolume(SOUND_ID, VOLUME / 100)
+        } else{ fancychat(0, "Couldn't start stream") }
+        
+        Playlist:shift()
+    } else{
+        streamStop(SOUND_ID)
+    }
+}
+
+if(clk("StopFromDuration")){
+    if(CLK <= Time & PLAY){
+        CLK++
+        E:egpSetText(21, format("%s (%s | %s)", NP, timeFormat(clamp(CLK, 0, Time)), timeFormat(Time)))
+    } else{
+        PLAY = 0
+        timer("clk", 1000)
+        E:egpSetText(21, "")
+        updateQueueList()
+        stoptimer("StopFromDuration")
+        CLK = 0
+    }
+    timer("StopFromDuration", 1000)
+}
+
+if(changed(Playlist:count()) & Playlist:count() > 0){ updateQueueList() }
