@@ -3,6 +3,11 @@
 @persist [NP Prefix]:string [Links Playlist Result]:table WL:table
 @persist [PLAY SOUND_ID VOLUME CLK Time INDEX PARENT]
 
+#[
+my api is no longer being hosted so you'll have to use a different api and change some
+parts of the code so i would recommend some basic knowledge of e2 before using this
+#]
+
 if(first() | changed(EGP)){
     Prefix = "!"
     
