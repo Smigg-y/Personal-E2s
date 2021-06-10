@@ -13,9 +13,9 @@
   <h3 align="center">Personal E2s</h3>
 
   <p align="center">
-    I am a bumba clart ediat
     <img src="https://github-readme-stats.vercel.app/api?username=Smigg-y&show_icons=true&theme=react">
-</p>
+  </p>
+</br>
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
