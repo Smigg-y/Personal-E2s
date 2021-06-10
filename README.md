@@ -14,9 +14,7 @@
 
   <p align="center">
     I am a bumba clart ediat
-    <br />
-    <a href="https://github.com/smigg-y/Personal-E2s"><strong>Explore the repo »</strong></a>
-    <br />
+    <img src="https://github-readme-stats.vercel.app/api?username=Smigg-y&show_icons=true&theme=react">
 </p>
 
 <!-- MARKDOWN LINKS & IMAGES -->
