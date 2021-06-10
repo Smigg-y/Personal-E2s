@@ -1,17 +1,14 @@
-[![Issues][issues-shield]][issues-url]
-[![Contributors][contributors-shield]][contributors-url]
-[![Forks][forks-shield]][forks-url]
-[![Stars][stars-shield]][stars-url]
+
 
 <!-- PROJECT LOGO -->
 <br />
-<p align="center">
-  <a href="https://github.com/smigg-y/Personal-E2s">
-    <img src="https://i.imgur.com/PNsjrzV.jpg" alt="Logo" width="120" height="120">
-  </a>
-
   <h1 align="center">Personal E2s</h3>
-
+  
+  [![Issues][issues-shield]][issues-url]
+  [![Contributors][contributors-shield]][contributors-url]
+  [![Forks][forks-shield]][forks-url]
+  [![Stars][stars-shield]][stars-url]
+  
   <p align="center">
     <img src="https://github-readme-stats.vercel.app/api?username=Smigg-y&show_icons=true&theme=react">
   </p>
