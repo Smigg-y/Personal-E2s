@@ -1,16 +1,14 @@
-
-
-<!-- PROJECT LOGO -->
+<!-- PROJECT INFO -->
 <br />
-  <h1 align="center">Personal E2s</h3>
-  
-  [![Issues][issues-shield]][issues-url]
-  [![Contributors][contributors-shield]][contributors-url]
-  [![Forks][forks-shield]][forks-url]
-  [![Stars][stars-shield]][stars-url]
+  <h1 align="center">Personal E2s</h1>
   
   <p align="center">
     <img src="https://github-readme-stats.vercel.app/api?username=Smigg-y&show_icons=true&theme=react">
+  
+    [![Issues][issues-shield]][issues-url]
+    [![Contributors][contributors-shield]][contributors-url]
+    [![Forks][forks-shield]][forks-url]
+    [![Stars][stars-shield]][stars-url]
   </p>
 </br>
 
