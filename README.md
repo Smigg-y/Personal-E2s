@@ -3,12 +3,8 @@
   <h1 align="center">Personal E2s</h1>
   
   <p align="center">
-    <img src="https://github-readme-stats.vercel.app/api?username=Smigg-y&show_icons=true&theme=react"/>
-  
-    [![Issues][issues-shield]][issues-url]
-    [![Contributors][contributors-shield]][contributors-url]
-    [![Forks][forks-shield]][forks-url]
-    [![Stars][stars-shield]][stars-url]
+    <img src="https://github-readme-stats.vercel.app/api?username=Smigg-y&show_icons=true&theme=react">
+    <img src=[contributors-shield]>
   </p>
 </br>
 
@@ -22,3 +18,11 @@
 [issues-url]: https://github.com/Smigg-y/Personal-E2s/issues
 [stars-shield]: https://img.shields.io/github/stars/Smigg-y/Personal-E2s.svg?style=for-the-badge
 [stars-url]: https://github.com/Smigg-y/Personal-E2s
+
+
+<!--
+    [![Issues][issues-shield]][issues-url]
+    [![Contributors][contributors-shield]][contributors-url]
+    [![Forks][forks-shield]][forks-url]
+    [![Stars][stars-shield]][stars-url]
+-->
