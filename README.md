@@ -4,7 +4,7 @@
   
   <p align="center">
     <img src="https://github-readme-stats.vercel.app/api?username=Smigg-y&show_icons=true&theme=react">
-    <img src=[contributors-shield]>
+    <img src=[![Issues][issues-shield]][issues-url]>
   </p>
 </br>
 
