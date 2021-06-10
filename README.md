@@ -10,7 +10,7 @@
     <img src="https://i.imgur.com/PNsjrzV.jpg" alt="Logo" width="120" height="120">
   </a>
 
-  <h3 align="center">Personal E2s</h3>
+  <h1 align="center">Personal E2s</h3>
 
   <p align="center">
     <img src="https://github-readme-stats.vercel.app/api?username=Smigg-y&show_icons=true&theme=react">
