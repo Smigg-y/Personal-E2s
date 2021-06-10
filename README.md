@@ -3,7 +3,7 @@
   <h1 align="center">Personal E2s</h1>
   
   <p align="center">
-    <img src="https://github-readme-stats.vercel.app/api?username=Smigg-y&show_icons=true&theme=react">
+    <img src="https://github-readme-stats.vercel.app/api?username=Smigg-y&show_icons=true&theme=react"/>
   
     [![Issues][issues-shield]][issues-url]
     [![Contributors][contributors-shield]][contributors-url]
