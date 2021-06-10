@@ -1,12 +1,11 @@
 <!-- PROJECT INFO -->
+[![Issues][issues-shield]][issues-url]
+[![Contributors][contributors-shield]][contributors-url]
+[![Forks][forks-shield]][forks-url]
+[![Stars][stars-shield]][stars-url]
+
 <br />
-  <h1 align="center">Personal E2s</h1>
-  
-  <p align="center">
-    <img src="https://github-readme-stats.vercel.app/api?username=Smigg-y&show_icons=true&theme=react">
-    <img src=[![Issues][issues-shield]][issues-url]>
-  </p>
-</br>
+<h1 align="center">Personal E2s</h1>
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
